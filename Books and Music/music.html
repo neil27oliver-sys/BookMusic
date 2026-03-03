@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neil Oliver – Music | Books & Music</title>
+
+  <style>
+    :root {
+      --gold:     #d4af37;       /* main accent / gold monogram feel */
+      --dark-bg:  #0f0a00;       /* deep warm black-brown */
+      --card:     #1e1400;       /* slightly lighter for cards */
+      --text:     #f5e8c0;       /* warm off-white / parchment */
+      --muted:    #b89a5f;       /* aged gold-brown */
+      --border:   #8b6f47;       /* wood/candle wax tone */
+      --red-warm: #8b4513;       /* subtle red from armchair */
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--text);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: linear-gradient(to bottom, #1a0f00, #0f0a00);
+      padding: 2rem 1rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .back-btn-container {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.5rem;
+    }
+
+    .back-btn {
+      padding: 0.8rem 1.6rem;
+      background: var(--gold);
+      color: #111;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      transition: all 0.25s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .back-btn:hover {
+      background: #e6c567;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.4);
+    }
+
+    h1 {
+      color: var(--gold);
+      margin: 0;
+      font-size: 2.6rem;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0.6rem 0 0;
+      font-style: italic;
+      font-size: 1.15rem;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 2.5rem auto 1rem;
+      padding: 0 1.5rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-weight: bold;
+      font-size: 1.15rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .btn-selection { background: var(--gold); color: #111; }
+    .btn-random    { background: var(--red-warm); color: white; }
+    .btn-all       { background: #6b4e31; color: white; }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 25px rgba(212,175,55,0.35);
+    }
+
+    .status {
+      text-align: center;
+      color: var(--muted);
+      margin: 1rem 0 2rem;
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+
+    .track-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .track {
+      background: var(--card);
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: all 0.25s;
+      border-left: 4px solid transparent;
+    }
+
+    .track:hover {
+      background: #2a1a00;
+      transform: translateX(6px);
+    }
+
+    .track-playing {
+      border-left: 6px solid var(--gold);
+      background: #332200;
+    }
+
+    .track-label {
+      flex: 1;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .track-title {
+      font-weight: bold;
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .player {
+      position: sticky;
+      bottom: 0;
+      background: rgba(15,10,0,0.92);
+      padding: 1.2rem;
+      border-top: 3px solid var(--gold);
+      text-align: center;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.8);
+    }
+
+    audio {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto 0.8rem;
+      display: block;
+    }
+
+    #nowPlaying {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.1rem; }
+      .controls { gap: 1rem; }
+      .btn { padding: 0.9rem 1.6rem; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="back-btn-container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </div>
+
+  <h1>Neil Oliver – Music</h1>
+  <p class="subtitle">Original Tracks – Select favorites, play in order, or let the ravens shuffle</p>
+</header>
+
+<main>
+  <div class="controls">
+    <button class="btn btn-selection" onclick="playSelection()">Play Selection</button>
+    <button class="btn btn-random" onclick="playRandom()">Play Random (Selected)</button>
+    <button class="btn btn-all" onclick="playAllRandom()">Play All / Shuffle</button>
+  </div>
+
+  <p class="status" id="status">Select tracks and choose a mode above</p>
+
+  <div class="track-list" id="trackList">
+    <!-- Populated by JS -->
+  </div>
+</main>
+
+<div class="player">
+  <audio id="audioPlayer" controls></audio>
+  <p id="nowPlaying">Select tracks and start playback</p>
+</div>
+
+<script>
+  const tracks = [
+    { title: "Shallow (The Road to Joburg)", src: "assets/Shallow (The Road to Joburg).mp3" },
+    { title: "White Horses", src: "assets/White Horses.mp3" },
+    { title: "Moonlit Shadow Reign", src: "assets/Moonlit Shadow Reign.mp3" },
+    { title: "Moonlit Shadow", src: "assets/Moonlit Shadow.mp3" },
+    { title: "Safari Dreams", src: "assets/Safari Dreams.mp3" },
+    { title: "Shadow Whisker", src: "assets/Shadow Whisker.mp3" },
+    { title: "pi (1)", src: "assets/pi (1).mp3" },
+    { title: "Lions in the Headlights", src: "assets/Lions in the Headlights.mp3" },
+    { title: "Kruger Magic ", src: "assets/Kruger Magic (1).mp3" },
+    { title: "Bubble Implosions Turning Into Light ", src: "assets/Bubble Implosions Turning Into Light (1)).mp3" },
+    { title: "White Anahat  ", src: "assets/_White Anahat  (1)).mp3" },
+    { title: "Will Always Love You (Cover Version)", src: "assets/_Will Always Love You (Cover Version)  (1)).mp3" },
+    { title: "African Anahat", src: "assets/African Anahat.mp3" },
+    { title: "Anahat Grace", src: "assets/Anahat Grace.mp3" },
+    { title: "Bokke Brul", src: "assets/Bokke Brul .mp3" },
+    { title: "Chant des Racines ", src: "assets/Chant des Racines .mp3" },
+    { title: "Chard of Fools and Lotto Blues  ", src: "assets/Chard of Fools and Lotto Blues  .mp3" },
+    { title: "Le Léopard Solitaire", src: "assets/Le Léopard Solitaire.mp3" },
+    { title: "Coins of the Oracle", src: "assets/Coins of the Oracle.mp3" },
+    { title: "Mosamo oa Lefu", src: "assets/Crocodile melody.mp3" },
+    { title: "Despacito Anahat", src: "assets/Despacito Anahat.mp3" },
+    { title: "Echoes in the Spiral_ Tsé Bighanilí's Breath", src: "assets/Echoes in the Spiral_ Tsé Bighanilí's Breath.mp3" },
+    { title: "Don't Care Rocker", src: "assets/Don't Care Rocker.mp3" },
+    { title: "Échos sur le Sol", src: "assets/Échos sur le Sol.mp3" },
+    { title: "Emperor Polka Slider", src: "assets/Emperor Polka Slide.mp3" },
+    { title: "EverSun Rising", src: "assets/EverSun Rising.mp3" },
+    { title: "Flamenco Fang Flamenco", src: "assets/Flamenco Fang Flamenco.mp3" },
+    { title: "Foxtrot Phantom Pounce", src: "assets/Foxtrot Phantom Pounce.mp3" },
+    { title: "Freude Anahat", src: "assets/Freude Anahat.mp3" },
+    { title: "Für Panpollo ", src: "assets/Für Panpollo (1).mp3" },
+    { title: "Gods Hand Chant", src: "assets/Gods Hand Chant.mp3" },
+    { title: "Grizzly Cajun Claw", src: "assets/Grizzly Cajun Claw.mp3" },   
+    { title: "Guru Levitate", src: "assets/GURU Levitate.mp3" },
+    { title: "Hexa-Code Horizon", src: "assets/Hexa-Code Horizon.mp3" },
+    { title: "Hexagram Jackpot Hex", src: "assets/Hexagram Jackpot Hex.mp3" },
+    { title: "Horned Savanna Charge", src: "assets/Horned Savanna Charge.mp3" },
+    { title: "Hottentotsgod Mambo", src: "assets/Hottentotsgod Mambo.mp3" },
+    { title: "Jackal Jive Swing", src: "assets/Jackal Jive Swing.mp3" },
+    { title: "Kandu Banda_ Ocean's Feast", src: "assets/Kandu Banda_ Ocean's Feast.mp3" },
+    { title: "Kisses in the Moonlight", src: "assets/Kisses in the Moonlight.mp3" },
+    { title: "Lost in the Labyrinth", src: "assets/Lost in the Labyrinth.mp3" },
+    { title: "Lunar Pack Waltz", src: "assets/Lunar Pack Waltz.mp3" },
+    { title: "Mudslide Freedom Jam", src: "assets/Mudslide Freedom Jam.mp3" },
+    { title: "Nature's Calling", src: "assets/Nature's Calling.mp3" },
+    { title: "Neck's Graceful Waltz", src: "assets/Neck's Graceful Waltz.mp3" },
+    { title: "Nine's the Slide ", src: "assets/Nine's the Slide (3-6 Trombone Ride.mp3" },
+    { title: "Nocturnal Aria Hoot", src: "assets/Nocturnal Aria Hoot.mp3" }, 
+    { title: "Oye Anahat", src: "assets/Oye Anahat.mp3" },
+    { title: "Pater noster", src: "assets/Pater noster, qui es in caelis,.mp3" },
+    { title: "Pulse Eternal", src: "assets/Pulse Eternal.mp3" },
+    { title: "Resonance Wheel Activation", src: "assets/Resonance Wheel Activation.mp3" },
+    { title: "River's Mighty Guardian", src: "assets/River's Mighty Guardian (1).mp3" },
+    { title: "Sam", src: "Sam.mp3" },
+    { title: "Savanna's Cheeky Chorus", src: "assets/Savanna's Cheeky Chorus.mp3" },
+    { title: "Savanna's Golden Roar", src: "assets/Savanna's Golden Roar.mp3" },
+    { title: "Savanna's Thunder Trunk", src: "assets/Savanna's Thunder Trunk.mp3" },
+    { title: "Seelie _ Unseelie", src: "assets/Seelie _ Unseelie.mp3" },
+    { title: "Silverback Mariachi Mask", src: "assets/Silverback Mariachi Mask.mp3" },
+    { title: "Solar Navigator", src: "assets/Solar Navigator.mp3" },
+    { title: "Song of the Bells", src: "assets/Song of the Bells.mp3" },
+    { title: "Song Of Unity Pub", src: "assets/SongOfUnity Pub.mp3" },
+    { title: "Spiral of Time", src: "assets/Spiral of Time (1).mp3" },
+    { title: "Star of Knowledge", src: "assets/Star of Knowledge.mp3" },
+    { title: "Sting Salsa Swing", src: "assets/Sting Salsa Swing.mp3" }, 
+    { title: "Storm on the Peak", src: "assets/Storm on the Peak.mp3" },
+    { title: "Striped Savanna Stomp", src: "assets/Striped Savanna Stomp.mp3" },
+    { title: "Tears", src: "assets/Tears.mp3" },
+    { title: "The 3-6-9 Key", src: "assets/The 3-6-9 Key (Vortex Oracle).mp3" },
+    { title: "The Chains They Are a-Breakin", src: "assets/The Chains They Are a-Breakin.mp3" },
+    { title: "The Clay's Whisper", src: "assets/The Clay's Whisper.mp3" },
+    { title: "The Coin of Light", src: "assets/The Coin of Light.mp3" },
+    { title: "The Unseen Architects", src: "assets/The Unseen Architects.mp3" },
+    { title: "The The Unseen River", src: "assets/The Unseen River (Ode to the Random).mp3" },
+    { title: "Thread of the Scribe", src: "assets/Thread of the Scribe.mp3" },
+    { title: "Three Hearts of the Void", src: "assets/Three Hearts of the Void.mp3" },
+    { title: "Thunderstruck Hyena Howl", src: "assets/Thunderstruck Hyena Howl (1).mp3" },
+    { title: "Stink Sniffer", src: "assets/Stink Sniffer (1).mp3" },
+    { title: "Black Knight Blues", src: "assets/Black Knight Blues.mp3" },
+    { title: "Rift Cadence", src: "assets/Rift Cadence.mp3" },
+    { title: "From Chaos to the Light", src: "assets/From Chaos to the Light (1).mp3" },
+    { title: "Break the Chains of Belief", src: "assets/Break the Chains of Belief.mp3" },
+    { title: "Break the Chains of Belief", src: "assets/Gears of the Maya Sky.mpe3" },
+    { title: "Akṣara Shakti Chant", src: "assets/Akṣara Shakti Chant.mp3" },
+    { title: "Beyond the Veil", src: "assets/Beyond the Veil.mp3" },
+    { title: "Beyond the Veil", src: "assets/Beyond the Veil.mp3" },
+    { title: "Dance of Chaos", src: "assets/《混亂之舞》 (Dance of Chaos).mp3" },
+    { title: "Cipher of the East", src: "assets/Cipher of the East (《東方密碼》).mp3" },
+    { title: "永遠の鼓動", src: "assets/永遠の鼓動.mp3" },
+    {title: "Αιώνιος Παλμός)", src: "assets/Αιώνιος Παλμός).mp3" },
+    {title: "Свеча в Метели ", src: "assets/Свеча в Метели .mp3" },
+    { title: "Presentation 94,7 Cycling ", src: "assets/Presentation 94,7 Cycling Application (2).mp3" },
+    { title: "Couch to Cage", src: "assets/Couch to Cage.mp3" },
+    { title: "Background Embers", src: "assets/Background Embers.mp3" },
+    { title: "Background Pre School", src: "assets/Background Pre School.mp3" },
+    { title: "Background  Pan's Oracle", src: "assets/Background  Pan's Oracle.mp3" },
+    { title: "Background StinkerBuddy", src: "assets/Background StinkerBuddy.mp3" },
+    { title: "Background  Tesla Trigrams Oracle", src: "assets/Background  Tesla Trigrams Oracle.mp3" },
+    { title: "Background Cosmic Weave", src: "assets/Cosmic Weave – The Orbital Lyric Forge.mp3" },
+    { title: "Moderation Rules", src: "assets/Moderation Rules.mp3" },
+    
+
+
+
+
+
+
+    // Add remaining tracks here if more exist
+  ];
+
+  const audio = document.getElementById('audioPlayer');
+  const nowPlaying = document.getElementById('nowPlaying');
+  const status = document.getElementById('status');
+  const trackList = document.getElementById('trackList');
+
+  let currentIndex = -1;
+  let playbackMode = 'none';
+
+  // Build track list
+  tracks.forEach((track, index) => {
+    const div = document.createElement('div');
+    div.className = 'track';
+    div.innerHTML = `
+      <input type="checkbox" id="track-${index}" />
+      <label for="track-${index}" class="track-label">
+        <div class="track-title">${track.title}</div>
+      </label>
+    `;
+    trackList.appendChild(div);
+  });
+
+  function getSelectedIndices() {
+    return Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+      .map(cb => parseInt(cb.id.split('-')[1]));
+  }
+
+  function playTrack(index) {
+    if (index < 0 || index >= tracks.length) return;
+    currentIndex = index;
+    audio.src = tracks[index].src;
+    audio.play().catch(e => console.log("Play failed:", e));
+    nowPlaying.textContent = `Now playing: ${tracks[index].title}`;
+    document.querySelectorAll('.track').forEach(t => t.classList.remove('track-playing'));
+    if (trackList.children[index]) trackList.children[index].classList.add('track-playing');
+  }
+
+  function playSelection() {
+    const selected = getSelectedIndices();
+    if (selected.length === 0) return status.textContent = "Select at least one track first";
+    playbackMode = 'selection';
+    status.textContent = "Playing your selection in order";
+    playTrack(selected[0]);
+  }
+
+  function playRandom() {
+    const selected = getSelectedIndices();
+    if (selected.length === 0) return status.textContent = "Select at least one track first";
+    playbackMode = 'random-selected';
+    status.textContent = "Shuffling from your selection";
+    const randomIdx = selected[Math.floor(Math.random() * selected.length)];
+    playTrack(randomIdx);
+  }
+
+  function playAllRandom() {
+    playbackMode = 'all-random';
+    status.textContent = "Shuffling the full collection";
+    const randomIdx = Math.floor(Math.random() * tracks.length);
+    playTrack(randomIdx);
+  }
+
+  audio.addEventListener('ended', () => {
+    if (playbackMode === 'none') return;
+
+    let nextIndex;
+    if (playbackMode === 'selection') {
+      const selected = getSelectedIndices();
+      const pos = selected.indexOf(currentIndex);
+      nextIndex = pos < selected.length - 1 ? selected[pos + 1] : selected[0];
+    } else {
+      const pool = playbackMode === 'random-selected' ? getSelectedIndices() : tracks.map((_,i)=>i);
+      if (pool.length === 0) return;
+      nextIndex = pool[Math.floor(Math.random() * pool.length)];
+    }
+    playTrack(nextIndex);
+  });
+
+  // Pause when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) audio.pause();
+  });
+</script>
+
+</body>
+</html>

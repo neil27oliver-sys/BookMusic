@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neil Oliver - 40+ Kindle Books</title>
+  <link rel="icon" type="image/png" href="favicon.ico"> <!-- optional -->
+
+  <style>
+    :root {
+      --primary: #f1ab09;
+      --secondary: #7a0606;
+      --accent: #ffd700;
+      --bg: #f8fafc;
+      --card: white;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: 0 0 30px 30px;
+      margin: -20px -20px 50px;
+    }
+    h1 { margin: 0; font-size: 3rem; }
+    .intro {
+      max-width: 900px;
+      margin: 0 auto 50px;
+      text-align: center;
+      font-size: 1.15rem;
+    }
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .book-card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      text-align: center;
+      padding: 20px 15px;
+    }
+    .book-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+    .book-cover {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .book-title {
+      font-size: 1.25rem;
+      margin: 10px 0 8px;
+      color: var(--secondary);
+      font-weight: bold;
+    }
+    .btn {
+      display: block;
+      margin: 15px auto 0;
+      padding: 10px 25px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: var(--secondary);
+      transform: scale(1.05);
+    }
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2.4rem; }
+      .books-grid { grid-template-columns: 1fr; }
+    }
+     .back-btn-container {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.5rem;
+    }
+
+    .back-btn {
+      padding: 0.8rem 1.6rem;
+      background: var(--gold);
+      color: #111;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      transition: all 0.25s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .back-btn:hover {
+      background: #e6c567;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.4);
+    }
+  </style>
+  <header>
+  <div class="back-btn-container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </div>
+</head>
+<body>
+
+  <header>
+    <h1>Neil Oliver</h1>
+    <p style="font-size:1.4rem; margin:15px 0 0;">40+ Kindle Books – Available Now on Amazon</p>
+  </header>
+
+  <div class="intro">
+    <p>Welcome to my collection of 40+ published works on Kindle. From thought-provoking fiction to deep explorations of creativity, history, and human potential — there's something here for every reader.</p>
+    <p>Click any cover below to jump straight to the Amazon Kindle page (prices set by Amazon; supports Kindle Unlimited where available).</p>
+    
+  </div>
+
+  <div class="books-grid">
+
+    <!-- Example 1: The Creativity Vault (from your link) -->
+    <div class="book-card">
+      <img src="assets/1.jpg" 
+           alt="The Creativity Vault Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Creativity Vault</div>
+      <a href="https://a.co/d/0hqP2Ewe" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+
+    <!-- Example 2: Placeholder for one of your other links -->
+    <div class="book-card">
+      <img src="assets/2.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Tear in Eternity</div>
+      <a href="https://a.co/d/0hyyXQss" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+
+    <!-- Example 3 -->
+    <div class="book-card">
+      <img src="assets/3.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Oracle’s Misstep</div>
+      <a href="https://a.co/d/0297Z77g" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/4.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Sun That Never Sets</div>
+      <a href="https://a.co/d/0b2RwCRe" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/5.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Skinny on Skinny</div>
+      <a href="https://a.co/d/04yK873U" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+      <div class="book-card">
+      <img src="assets/6.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Floating Guru: The Rise and Levitating Fall</div>
+      <a href="https://a.co/d/0cddSl30" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/7.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Echo of Creation</div>
+      <a href="https://a.co/d/0cnnn0q5" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/8.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Red to Blue: Mars Reborn</div>
+      <a href="https://a.co/d/01uGc0pw" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/9.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Coin of Purpose</div>
+      <a href="https://a.co/d/0hlaHKk4" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/10.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Art of Chaos: Eastern Reckoning</div>
+      <a href="https://a.co/d/02FB5Ict" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/11.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Seedbearers</div>
+      <a href="https://a.co/d/0fsSoP3q" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/12.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Web of the Forest</div>
+      <a href="https://a.co/d/0enbKIof" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/13.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">From Control to Unity</div>
+      <a href="https://a.co/d/0bFiDhP0" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/14.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Voices of Unity</div>
+      <a href="https://a.co/d/0eXfdYGz" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/15.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The New Prometheus</div>
+      <a href="https://a.co/d/09wSGik0" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/16.png" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Struggle to Fulfillment</div>
+      <a href="https://a.co/d/0gEmL3Dj" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/17.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Tales of Triumph</div>
+      <a href="https://a.co/d/05AsCr5T" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/18.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Young & Unstoppable: Productivity Wins</div>
+      <a href="https://a.co/d/0frefJkx" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/19.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Lepers Island</div>
+      <a href="https://a.co/d/01soVrX6" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/20.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Tears in Time: A Cosmic Quest for Purpose</div>
+      <a href="https://a.co/d/02pE5bnH" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/21.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Art of Chaos</div>
+      <a href="https://a.co/d/01ZcAD6H" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/22.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Crypto Cascade</div>
+      <a href="https://a.co/d/0j7gQaYq" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/23.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Wings of the Andes</div>
+      <a href="https://a.co/d/0gcMJkwQ" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/24.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Rope of Unity</div>
+      <a href="https://a.co/d/01EFYtkY" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/25.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The God Hand Algorithm</div>
+      <a href="https://a.co/d/03D0O8KB" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/26.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Comparisons and Lessons from Singapore for South Africa’s Political Environment</div>
+      <a href="https://a.co/d/0gwzWKjN" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+      <div class="book-card">
+      <img src="assets/27.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Three Apes and the Journey of Unity</div>
+      <a href="https://a.co/d/0cyMSiEj" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/28.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Quest for Control: Dependency as a Symptom Across History</div>
+      <a href="https://a.co/d/03tNjL86" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/29.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Truth Will Set You Free</div>
+      <a href="https://a.co/d/0d0vXLRn" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/30.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Threads of Truth</div>
+      <a href="https://a.co/d/0hBemQbB" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/31.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Evolution of Words</div>
+      <a href="https://a.co/d/08wS9WSd" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/32.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Vibe of Truth</div>
+      <a href="https://a.co/d/0aykTi3R" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/33.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Currency of Clout</div>
+      <a href="https://a.co/d/0ggiYy0h" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/34.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Scribe’s Codex</div>
+      <a href="https://a.co/d/08XU2Zna" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/35.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Weaver’s Tale</div>
+      <a href="https://a.co/d/00VdPfhU" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/36.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Pulse of the Lyre: A Musical Odyssey: A Sequel to Pulse of Eternity</div>
+      <a href="https://a.co/d/0el5180S" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/37.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Song of Marie-Claire</div>
+      <a href="https://a.co/d/0alGncJN" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/38.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Pulse of Eternity</div>
+      <a href="https://a.co/d/0i7Vdo4H" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/39.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Mystery of the Sticks of Truth</div>
+      <a href="https://a.co/d/0aR268Uk" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+     <div class="book-card">
+      <img src="assets/40.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">The Art of Chaos: Eastern Reckoning 《混亂的藝術》</div>
+      <a href="https://a.co/d/028UFBJf" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/41.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">Dance of Chaos (混亂之舞)</div>
+      <a href="https://a.co/d/00faK4px" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <div class="book-card">
+      <img src="assets/42.jpg" 
+           alt="Book Cover" class="book-cover"
+           onerror="this.src='https://via.placeholder.com/160x240?text=Book+Cover';">
+      <div class="book-title">永恆之脈 (Traditional Chinese Edition)</div>
+      <a href="https://a.co/d/0dYvKnf3" target="_blank" rel="noopener noreferrer" class="btn">
+        View on Kindle
+      </a>
+    </div>
+    <!-- ... repeat for Book 5 through 45 ... -->
+
+  </div>
+
+  <footer>
+    © 2026 Neil Oliver • All books monetized via Amazon Kindle • 
+    <a href="index.html" style="color:var(--primary);">Back to App Home</a><br>
+    
+  </footer>
+
+</body>
+</html>

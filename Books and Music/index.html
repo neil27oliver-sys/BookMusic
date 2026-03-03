@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neil Oliver – Books & Music</title>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=AWMjw-JB6E8nFkjToPpNNJkpPk9lxnp1I8IF13-djVLcOQ2daRj2k8tCM4jEHkjm_C8mPpnyO1Wj_rF4&currency=USD&components=buttons,hosted-fields&disable-funding=venmo,credit"></script>
+
+  <style>
+    :root {
+      --primary: #8b4513;
+      --secondary: #4a2c0d;
+      --accent: #d4af37;
+      --text: #f5f5f5;
+      --overlay: rgba(0,0,0,0.58);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #0f0a00;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .hero {
+      position: relative;
+      height: 50vh;
+      min-height: 700px;
+      background: var(--overlay) url('assets/BM.png') center center / cover no-repeat fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      /* FIX 1: Padding at the top ensures text NEVER runs off screen */
+      padding: 80px 20px 60px; 
+    }
+
+    .top-content {
+      margin-top: 0; /* Changed to 0 because we use hero padding now */
+      max-width: 920px;
+      width: 100%;
+      padding: 0 15px;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 700;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.95);
+      letter-spacing: 1.5px;
+      margin-bottom: 0.4em;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+      font-style: italic;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.9);
+      max-width: 90%;
+      margin: 0 auto;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 5vh;
+    }
+
+    .btn {
+      padding: 18px 64px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #111;
+      background: var(--accent);
+      border-radius: 60px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.7);
+      transition: all 0.35s ease;
+      cursor: pointer;
+      border: none;
+      user-select: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 14px 40px rgba(212,175,55,0.45);
+      background: #e8c56a;
+    }
+
+    .btn-music {
+      background: #b8860b;
+      color: white;
+    }
+
+    /* Paywall Modal */
+    #paywall-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #140b00;
+      padding: 50px 40px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #d4af37;
+      box-shadow: 0 20px 70px rgba(0,0,0,0.9);
+    }
+
+    .close-btn {
+      padding: 14px 50px;
+      background: #555;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .buttons { flex-direction: column; gap: 30px; }
+      .btn { padding: 16px 70px; font-size: 1.45rem; }
+      h1 { font-size: clamp(2.4rem, 9vw, 4rem); }
+      .hero { padding-top: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="top-content">
+      <h1>Neil Oliver</h1>
+      <div class="subtitle">Books & Music</div>
+    </div>
+
+    <div class="buttons">
+      <a href="books.html" class="btn">Books</a>
+      <button type="button" id="music-btn" class="btn btn-music">Music</button>
+    </div>
+  </div>
+
+  <div id="paywall-modal">
+    <div class="modal-box">
+      <h2 style="color:var(--accent); margin-bottom:20px;">Unlock Music</h2>
+      <p style="margin-bottom:30px;">One-time payment • $3<br>Full access forever</p>
+      <div id="paypal-button-container"></div>
+      <button class="close-btn" id="close-modal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const MUSIC_PAID_KEY = 'neilOliverMusicUnlocked';
+
+    // Initialize PayPal
+    if (window.paypal) {
+      paypal.Buttons({
+         createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: '3' }
+                    }],
+                    application_context: { shipping_preference: "NO_SHIPPING" }
+                });
+            },
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(() => {
+            localStorage.setItem(MUSIC_PAID_KEY, 'true');
+            window.location.href = 'music.html'; 
+          });
+        }
+      }).render('#paypal-button-container');
+    }
+
+    const musicBtn = document.getElementById('music-btn');
+    const modal = document.getElementById('paywall-modal');
+    const closeBtn = document.getElementById('close-modal');
+
+    // FIX 2: Check status INSIDE the click event
+    musicBtn.addEventListener('click', () => {
+      const isPaid = localStorage.getItem(MUSIC_PAID_KEY) === 'true';
+      if (isPaid) {
+        window.location.href = 'music.html';
+      } else {
+        modal.style.display = 'flex';
+      }
+    });
+
+    closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+  </script>
+</body>
+</html>
