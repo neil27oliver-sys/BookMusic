@@ -37,7 +37,9 @@
       position: relative;
       height: 100vh;
       min-height: 700px;
-      background: var(--overlay) url('assets/BM.png') center center / cover no-repeat fixed;
+      /* Changed 'cover' to 'contain' and removed 'fixed' to ensure the whole art fits */
+      background: var(--overlay) url('assets/NEW.png') center center / contain no-repeat;
+      background-color: #0f0a00; /* Matches the dark background of your art */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -45,7 +47,6 @@
       text-align: center;
       padding: 80px 20px 60px;
     }
-
     .top-content {
       max-width: 920px;
       width: 100%;
