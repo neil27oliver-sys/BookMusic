@@ -30,7 +30,7 @@
     overflow-x: hidden;
   }
 
-  /* DESKTOP/LAPTOP DEFAULT */
+  /* HERO STYLES (unchanged) */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -44,24 +44,9 @@
     padding: 60px 20px;
   }
 
-  .top-content {
-    max-width: 920px;
-    width: 100%;
-    z-index: 10;
-  }
-
-  h1 {
-    font-size: clamp(2.4rem, 7vw, 5.2rem);
-    font-weight: 700;
-    text-shadow: 0 6px 24px rgba(0,0,0,0.95);
-    margin-bottom: 0.2em;
-  }
-
-  .subtitle {
-    font-size: clamp(1.2rem, 4vw, 2.4rem);
-    font-style: italic;
-    margin-bottom: 20px;
-  }
+  .top-content { max-width: 920px; width: 100%; z-index: 10; }
+  h1 { font-size: clamp(2.4rem, 7vw, 5.2rem); font-weight: 700; text-shadow: 0 6px 24px rgba(0,0,0,0.95); margin-bottom: 0.2em; }
+  .subtitle { font-size: clamp(1.2rem, 4vw, 2.4rem); font-style: italic; margin-bottom: 20px; }
 
   .buttons {
     display: flex;
@@ -93,35 +78,20 @@
   .btn-Video { background: #b80b0e; color: white; }
   .btn-music { background: #b8860b; color: white; }
 
-  /* THE MOBILE FIX (Phones) */
   @media (max-width: 600px) {
     .hero {
-      display: block; /* Allows natural scrolling */
+      display: block;
       height: auto;
-      background-position: center 140px; /* Moves face below the title */
+      background-position: center 140px;
       background-size: 100%;
       padding-top: env(safe-area-inset-top);
     }
-
-    .top-content {
-      margin-bottom: 420px; /* Creates the space so art is visible */
-      padding-top: 40px;
-    }
-
-    .buttons {
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 80px; /* Space at the very bottom */
-    }
-
-    .btn {
-      width: 90%;
-      max-width: 320px;
-      margin-bottom: 10px;
-    }
+    .top-content { margin-bottom: 420px; padding-top: 40px; }
+    .buttons { flex-direction: column; align-items: center; padding-bottom: 80px; }
+    .btn { width: 90%; max-width: 320px; margin-bottom: 10px; }
   }
 
-  /* Modal */
+  /* ==================== PAYWALL MODAL FIX ==================== */
   #paywall-modal {
     display: none;
     position: fixed;
@@ -130,14 +100,37 @@
     z-index: 2000;
     align-items: center;
     justify-content: center;
+    padding: 20px; /* extra breathing room on small screens */
+    overflow-y: auto; /* important for iOS */
   }
+
   .modal-box {
     background: #140b00;
-    padding: 30px;
+    padding: 30px 24px;
     border-radius: 20px;
     max-width: 400px;
-    width: 90%;
+    width: 100%;
     border: 1px solid var(--accent);
+    max-height: 92vh;           /* ← prevents it from being taller than screen */
+    overflow-y: auto;           /* ← enables scrolling inside modal */
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  }
+
+  /* Make PayPal form fields look nice */
+  #paypal-button-container {
+    margin: 20px 0;
+  }
+
+  .close-btn {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid #666;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -158,10 +151,13 @@
     </div>
   </div>
 
+  <!-- PAYWALL MODAL -->
   <div id="paywall-modal">
     <div class="modal-box">
-      <h2 style="color:var(--accent); margin-bottom:15px; font-size: 2rem;">Unlock The Library</h2>
-      <p style="margin-bottom:25px; font-size: 1.1rem;">One-time payment • $3.00<br>Full access forever</p>
+      <h2 style="color:var(--accent); margin-bottom:15px; font-size: 2rem; text-align:center;">Unlock The Library</h2>
+      <p style="margin-bottom:25px; font-size: 1.1rem; text-align:center;">
+        One-time payment • $3.00<br>Full access forever
+      </p>
       <div id="paypal-button-container"></div>
       <button class="close-btn" id="close-modal">Maybe Later</button>
     </div>
@@ -172,9 +168,9 @@
     let deferredPrompt;
 
     const isIOS = () => {
-      return [
-        'iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'
-      ].includes(navigator.platform) || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+      return ['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod']
+             .includes(navigator.platform) || 
+             (navigator.userAgent.includes("Mac") && "ontouchend" in document);
     };
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -182,9 +178,9 @@
       deferredPrompt = e;
     });
 
-    // Initialize PayPal
     function initPayPal() {
-      if (window.paypal && document.getElementById('paypal-button-container').innerHTML === '') {
+      const container = document.getElementById('paypal-button-container');
+      if (window.paypal && container.innerHTML === '') {
         paypal.Buttons({
           createOrder: (data, actions) => {
             return actions.order.create({
@@ -195,22 +191,17 @@
           onApprove: (data, actions) => {
             return actions.order.capture().then(details => {
               localStorage.setItem(MUSIC_PAID_KEY, 'true');
+              document.getElementById('paywall-modal').style.display = 'none';
               if (isIOS()) {
-                alert('Success! Tap "Share" and "Add to Home Screen" to save the app.');
-                window.location.href = 'music.html';
-              } else if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => { window.location.href = 'music.html'; });
-              } else {
-                window.location.href = 'music.html';
+                alert('Success! Tap "Share" → "Add to Home Screen"');
               }
+              window.location.href = 'music.html';
             });
           }
         }).render('#paypal-button-container');
       }
     }
 
-    // Button Logic
     document.getElementById('music-btn').addEventListener('click', () => {
       if (localStorage.getItem(MUSIC_PAID_KEY) === 'true') {
         window.location.href = 'music.html';
@@ -224,7 +215,6 @@
       document.getElementById('paywall-modal').style.display = 'none';
     });
   </script>
-
 </body>
 </html>
 
