@@ -9,8 +9,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" sizes="128x128">
   <link rel="apple-touch-icon" href="assets/icon.png">
 
-  <script src="https://www.paypal.com/sdk/js?client-id=AWMjw-JB6E8nFkjToPpNNJkpPk9lxnp1I8IF13-djVLcOQ2daRj2k8tCM4jEHkjm_C8mPpnyO1Wj_rF4&currency=USD&components=buttons,hosted-fields&disable-funding=venmo,credit"></script>
-
+  
 <style>
   :root {
     --primary: #8b4513;
@@ -91,18 +90,8 @@
     .btn { width: 90%; max-width: 320px; margin-bottom: 10px; }
   }
 
-  /* ==================== PAYWALL MODAL FIX ==================== */
-  #paywall-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-    padding: 20px; /* extra breathing room on small screens */
-    overflow-y: auto; /* important for iOS */
-  }
+ 
+ 
 
   .modal-box {
     background: #140b00;
@@ -116,10 +105,8 @@
     -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
   }
 
-  /* Make PayPal form fields look nice */
-  #paypal-button-container {
-    margin: 20px 0;
-  }
+ 
+  
 
   .close-btn {
     width: 100%;
@@ -147,74 +134,12 @@
       <a href="books.html" class="btn btn-book">Books</a>
       <a href="App.html" class="btn btn-app">Neil's App Hub</a>
       <a href="video.html" class="btn btn-Video">Videos</a>
-      <button type="button" id="music-btn" class="btn btn-music">Music</button>
+      <a href="music.html" class="btn btn-music"> music</a>
+     
     </div>
   </div>
 
-  <!-- PAYWALL MODAL -->
-  <div id="paywall-modal">
-    <div class="modal-box">
-      <h2 style="color:var(--accent); margin-bottom:15px; font-size: 2rem; text-align:center;">Unlock The Library</h2>
-      <p style="margin-bottom:25px; font-size: 1.1rem; text-align:center;">
-        One-time payment • $3.00<br>Full access forever
-      </p>
-      <div id="paypal-button-container"></div>
-      <button class="close-btn" id="close-modal">Maybe Later</button>
-    </div>
-  </div>
-
-  <script>
-    const MUSIC_PAID_KEY = 'neilOliverMusicUnlocked';
-    let deferredPrompt;
-
-    const isIOS = () => {
-      return ['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod']
-             .includes(navigator.platform) || 
-             (navigator.userAgent.includes("Mac") && "ontouchend" in document);
-    };
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    function initPayPal() {
-      const container = document.getElementById('paypal-button-container');
-      if (window.paypal && container.innerHTML === '') {
-        paypal.Buttons({
-          createOrder: (data, actions) => {
-            return actions.order.create({
-              purchase_units: [{ amount: { value: '3.00' } }],
-              application_context: { shipping_preference: "NO_SHIPPING" }
-            });
-          },
-          onApprove: (data, actions) => {
-            return actions.order.capture().then(details => {
-              localStorage.setItem(MUSIC_PAID_KEY, 'true');
-              document.getElementById('paywall-modal').style.display = 'none';
-              if (isIOS()) {
-                alert('Success! Tap "Share" → "Add to Home Screen"');
-              }
-              window.location.href = 'music.html';
-            });
-          }
-        }).render('#paypal-button-container');
-      }
-    }
-
-    document.getElementById('music-btn').addEventListener('click', () => {
-      if (localStorage.getItem(MUSIC_PAID_KEY) === 'true') {
-        window.location.href = 'music.html';
-      } else {
-        document.getElementById('paywall-modal').style.display = 'flex';
-        initPayPal();
-      }
-    });
-
-    document.getElementById('close-modal').addEventListener('click', () => {
-      document.getElementById('paywall-modal').style.display = 'none';
-    });
-  </script>
+ 
 </body>
 </html>
 
